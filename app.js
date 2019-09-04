@@ -11,6 +11,9 @@ app.use(bodyParser.json());
 //configure server port
 var port = process.env.port || 8080;
 
+//define model
+var Book = require('./models/book');
+
 //configure router
 var router = require('./routes')(app,Book);
 
@@ -22,10 +25,7 @@ db.once('open',function() {
     console.log("Connected to mongoDB server");
 });
 
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
-
-//define model
-var Book = require('./models/book');
+mongoose.connect('mongodb://localhost/mongodb_tutorial',{ useNewUrlParser: true });
 
 //run server
 var server = app.listen(port,function() {
